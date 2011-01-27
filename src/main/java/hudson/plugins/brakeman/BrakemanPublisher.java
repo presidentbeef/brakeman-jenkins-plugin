@@ -120,9 +120,8 @@ public class BrakemanPublisher extends HealthAwarePublisher {
 
 			try {
 				Launcher launcher = new LocalLauncher(TaskListener.NULL);
-				final String cmd = "brakeman -f tabs";
 				Launcher.ProcStarter starter = launcher.launch();
-				Proc proc = launcher.launch(starter.cmds("brakeman", "-f tabs").stdout(out).envs(build.getEnvironment()).pwd(ws));
+				Proc proc = launcher.launch(starter.cmds("brakeman", "-f", "tabs").stdout(out).envs(build.getEnvironment()).pwd(ws));
 				proc.join();
 			} catch (Exception e) {
 				logger.log(e);
