@@ -21,6 +21,7 @@ import hudson.tasks.Publisher;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileReader;
+import java.io.RandomAccessFile;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -42,40 +43,12 @@ public class BrakemanPublisher extends HealthAwarePublisher {
 	/** Descriptor of this publisher. */
 	@Extension
 	public static final BrakemanDescriptor BRAKEMAN_DESCRIPTOR = new BrakemanDescriptor();
-	public String sourcecodedir;
-	public String executable;
+	public String outputFile;
 	private static Pattern pattern = Pattern.compile("^([^\t]+?)\t(\\d+)\t([\\w\\s]+?)\t(\\w+)\t([\\w\\s]+?)\t(High|Medium|Weak)", Pattern.MULTILINE);
 
 	/**
-	 * Creates a new instance of <code>WarningPublisher</code>.
+	 * Creates a new instance of <code>BrakemanPublisher</code>.
 	 *
-	 * @param threshold
-	 *            Annotation threshold to be reached if a build should be
-	 *            considered as unstable.
-	 * @param newThreshold
-	 *            New annotations threshold to be reached if a build should be
-	 *            considered as unstable.
-	 * @param failureThreshold
-	 *            Annotation threshold to be reached if a build should be
-	 *            considered as failure.
-	 * @param newFailureThreshold
-	 *            New annotations threshold to be reached if a build should be
-	 *            considered as failure.
-	 * @param healthy
-	 *            Report health as 100% when the number of annotations is less
-	 *            than this value
-	 * @param unHealthy
-	 *            Report health as 0% when the number of annotations is greater
-	 *            than this value
-	 * @param thresholdLimit
-	 *            determines which warning priorities should be considered when
-	 *            evaluating the build stability and health
-	 * @param defaultEncoding
-	 *            the default encoding to be used when reading and parsing files
-	 * @param useDeltaValues
-	 *            determines whether the absolute annotations delta or the
-	 *            actual annotations set difference should be used to evaluate
-	 *            the build stability
 	 */
 	// CHECKSTYLE:OFF
 	@SuppressWarnings("PMD.ExcessiveParameterList")
@@ -83,13 +56,12 @@ public class BrakemanPublisher extends HealthAwarePublisher {
 		public BrakemanPublisher(final String threshold, final String newThreshold,
 				final String failureThreshold, final String newFailureThreshold,
 				final String healthy, final String unHealthy, final String thresholdLimit,
-				final String defaultEncoding, final String sourcecodedir, final String executable,
+				final String defaultEncoding, final String outputFile,
 				final boolean useDeltaValues) {
 			super(threshold, newThreshold, failureThreshold, newFailureThreshold,
 					healthy, unHealthy, thresholdLimit, "UTF-8", useDeltaValues, "BRAKEMAN");
 
-			this.sourcecodedir = sourcecodedir;
-			this.executable = executable;
+			this.outputFile = outputFile;
 		}
 	// CHECKSTYLE:ON
 
@@ -115,21 +87,12 @@ public class BrakemanPublisher extends HealthAwarePublisher {
 		public BuildResult perform(final AbstractBuild<?, ?> build, final PluginLogger logger) throws InterruptedException, IOException {
 
 
-			FilePath ws = build.getWorkspace();
-			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			FilePath brakemanOutput = new FilePath(build.getWorkspace(), this.outputFile);
 
-			try {
-				Launcher launcher = new LocalLauncher(TaskListener.NULL);
-				Launcher.ProcStarter starter = launcher.launch();
-				Proc proc = launcher.launch(starter.cmds(this.executable, "-f", "tabs").stdout(out).envs(build.getEnvironment()).pwd(ws));
-				proc.join();
-			} catch (Exception e) {
-				logger.log(e);
-				return null;
-			}
+			String output = brakemanOutput.readToString();
 
 			ParserResult project = new ParserResult(build.getWorkspace());
-			this.scan(out.toString(), project);
+			this.scan(output, project);
 
 			BrakemanResult result = new BrakemanResult(build, getDefaultEncoding(), project);
 			build.getActions().add(new BrakemanResultAction(build, this, result));
@@ -149,7 +112,7 @@ public class BrakemanPublisher extends HealthAwarePublisher {
 			return super.canContinue(result);
 		}
 
-	 private void scan(String brakemanOutput, ParserResult project) {
+	private void scan(String brakemanOutput, ParserResult project) {
 		Matcher m = this.pattern.matcher(brakemanOutput);
 
 		while(m.find()) {
@@ -174,10 +137,10 @@ public class BrakemanPublisher extends HealthAwarePublisher {
 
 			if(line > 2)
 				start = line - 1;
-			
+
 
 			project.addAnnotation(new Warning(fileName, start, end, type, category, message, priority));
 		}
-	 }
+	}
 
 }
