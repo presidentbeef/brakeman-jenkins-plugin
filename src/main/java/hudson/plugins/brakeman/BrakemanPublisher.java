@@ -53,13 +53,20 @@ public class BrakemanPublisher extends HealthAwarePublisher {
 	// CHECKSTYLE:OFF
 	@SuppressWarnings("PMD.ExcessiveParameterList")
 		@DataBoundConstructor
-		public BrakemanPublisher(final String threshold, final String newThreshold,
-				final String failureThreshold, final String newFailureThreshold,
-				final String healthy, final String unHealthy, final String thresholdLimit,
-				final String defaultEncoding, final String outputFile,
-				final boolean useDeltaValues) {
-			super(threshold, newThreshold, failureThreshold, newFailureThreshold,
-					healthy, unHealthy, thresholdLimit, "UTF-8", useDeltaValues, "BRAKEMAN");
+		public BrakemanPublisher(final String healthy, final String unHealthy, final String thresholdLimit,
+				final boolean useDeltaValues,
+				final String unstableTotalAll, final String unstableTotalHigh, final String unstableTotalNormal, final String unstableTotalLow,
+				final String unstableNewAll, final String unstableNewHigh, final String unstableNewNormal, final String unstableNewLow,
+				final String failedTotalAll, final String failedTotalHigh, final String failedTotalNormal, final String failedTotalLow,
+				final String failedNewAll, final String failedNewHigh, final String failedNewNormal, final String failedNewLow,
+				final boolean canRunOnFailed, final String outputFile) {
+
+			super(healthy, unHealthy, thresholdLimit, "UTF-8", useDeltaValues,
+					unstableTotalAll, unstableTotalHigh, unstableTotalNormal, unstableTotalLow,
+					unstableNewAll, unstableNewHigh, unstableNewNormal, unstableNewLow,
+					failedTotalAll, failedTotalHigh, failedTotalNormal, failedTotalLow,
+					failedNewAll, failedNewHigh, failedNewNormal, failedNewLow,
+					canRunOnFailed, "BRAKEMAN");
 
 			this.outputFile = outputFile;
 		}

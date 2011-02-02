@@ -5,6 +5,7 @@
 </f:entry>
 <f:advanced>
   <f:entry>
+    <u:health id="brakeman"/>
     <u:thresholds id="brakeman"/>
     <u:trend id="brakeman"/>
   </f:entry>
