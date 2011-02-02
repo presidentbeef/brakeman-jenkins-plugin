@@ -1,6 +1,6 @@
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define"
 	xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:u="/util">
-<f:entry title="${%Brakeman Output File}" help="executable">
+<f:entry title="${%Brakeman Output File}">
   <f:textbox field="outputFile" id="outputFile" default="brakeman-output.tabs"/>
 </f:entry>
 <f:advanced>
