@@ -44,7 +44,7 @@ public class BrakemanPublisher extends HealthAwarePublisher {
 	@Extension
 	public static final BrakemanDescriptor BRAKEMAN_DESCRIPTOR = new BrakemanDescriptor();
 	public String outputFile;
-	private static Pattern pattern = Pattern.compile("^([^\t]+?)\t(\\d+)\t([\\w\\s]+?)\t(\\w+)\t([\\w\\s]+?)\t(High|Medium|Weak)", Pattern.MULTILINE);
+	private static Pattern pattern = Pattern.compile("^([^\t]+?)\t(\\d+)\t([\\w\\s]+?)\t(\\w+)\t([^\t]+?)\t(High|Medium|Weak)", Pattern.MULTILINE);
 
 	/**
 	 * Creates a new instance of <code>BrakemanPublisher</code>.
