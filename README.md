@@ -20,9 +20,17 @@ Inside Hudson, `Manage Hudson -> Manage Plugins -> Advanced -> Upload Plugin`
 
 ## Usage
 
-Add/append shell command:
+Add/append a shell command like:
 
-    gem install brakeman --no-rdoc --no-ri &&
+    gem install brakeman --no-rdoc --no-ri
     brakeman -o brakeman-output.tabs
 
+Alternatively, there is a smaller package called `brakeman-min` which installs a minimal version of Brakeman. If Haml or RailsXSS are used, then the `haml` or `erubis` gems (respectively) need to be installed separately.
+
 Enable Brakeman plugin.
+
+Some adjustment may need to be done regarding paths. Brakeman needs to be run at the root of the application or supplied with the path. The output file specified on the commandline needs to be synched with the output file specified as a plugin option.
+
+## Compatibility
+
+Brakeman only supports Rails 2.x at the moment. Rails 3 support is currently underway.
