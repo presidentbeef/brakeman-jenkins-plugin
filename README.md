@@ -1,4 +1,4 @@
-[Hudson](http://hudson-ci.org) plugin to run [Brakeman](https://github.com/presidentbeef/brakeman) against Ruby on Rails applications and track the results.
+A Hudson/[Jenkins](http://jenkins-ci.org) plugin to run [Brakeman](https://github.com/presidentbeef/brakeman) against Ruby on Rails applications and track the results.
 
 ## Test
 
@@ -6,7 +6,7 @@ Requires Maven2.
 
     mvn hpi:run
 
-This starts up a copy of Hudson with the Brakeman plugin installed.
+This starts up a copy of Jenkins with the Brakeman plugin installed. This is not necessary if you just want to install the plugin.
 
 ## Build
 
@@ -16,7 +16,7 @@ Builds a copy of the plugin in `./target/brakeman.hpi`
 
 ## Install
 
-Inside Hudson, `Manage Hudson -> Manage Plugins -> Advanced -> Upload Plugin`
+Inside Jenkins, `Manage Jenkins -> Manage Plugins -> Advanced -> Upload Plugin`
 
 ## Usage
 
@@ -32,5 +32,7 @@ Enable Brakeman plugin.
 Some adjustment may need to be done regarding paths. Brakeman needs to be run at the root of the application or supplied with the path. The output file specified on the commandline needs to be synched with the output file specified as a plugin option.
 
 ## Compatibility
+
+This plugin requires the [Static Analysis Utilities Pugin](https://wiki.jenkins-ci.org/display/JENKINS/Static+Code+Analysis+Plug-ins) (which is also called "analysis-core") but will *not* work with any version > 1.15.
 
 Brakeman only supports Rails 2.x at the moment. Rails 3 support is currently underway.
