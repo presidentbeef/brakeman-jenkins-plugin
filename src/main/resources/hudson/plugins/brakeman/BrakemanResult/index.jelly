@@ -5,7 +5,7 @@
 		<st:include it="${it.owner}" page="sidepanel.jelly" />
 		<l:main-panel>
 
-			<h1>${%Compiler Warnings}</h1>
+			<h1>${%Brakeman Vulnerability Warnings}</h1>
 
 			<h2>${%Warnings Trend}</h2>
 
