@@ -18,6 +18,8 @@ Builds a copy of the plugin in `./target/brakeman.hpi`
 
 Inside Jenkins, `Manage Jenkins -> Manage Plugins -> Advanced -> Upload Plugin`
 
+Upload `brakeman.hpi`.
+
 ## Usage
 
 Add/append a shell command like:
@@ -33,6 +35,4 @@ Some adjustment may need to be done regarding paths. Brakeman needs to be run at
 
 ## Compatibility
 
-This plugin requires the [Static Analysis Utilities Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Static+Code+Analysis+Plug-ins) (which is also called "analysis-core") but will *not* work with any version > 1.15.
-
-Brakeman only supports Rails 2.x at the moment. Rails 3 support is currently underway.
+This plugin requires the [Static Analysis Utilities Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Static+Code+Analysis+Plug-ins) (which is also called "analysis-core") version >= 1.16.
