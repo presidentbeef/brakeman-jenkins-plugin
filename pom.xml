@@ -10,7 +10,7 @@
   <artifactId>brakeman</artifactId>
   <packaging>hpi</packaging>
   <name>Hudson Brakeman Plug-in</name>
-  <version>0.2</version>
+  <version>0.3</version>
   <url>http://wiki.hudson-ci.org/</url>
   <description>This plug-in reads output from Brakeman, a static analysis vulnerability
 	scanner for Ruby on Rails.</description>
@@ -43,7 +43,7 @@
     <dependency>
       <groupId>org.jvnet.hudson.plugins</groupId>
       <artifactId>analysis-core</artifactId>
-      <version>1.22</version>
+      <version>1.30</version>
     </dependency>
   </dependencies>
 
