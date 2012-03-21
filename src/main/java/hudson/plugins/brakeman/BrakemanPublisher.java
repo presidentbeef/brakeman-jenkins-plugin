@@ -59,14 +59,14 @@ public class BrakemanPublisher extends HealthAwarePublisher {
 				final String unstableNewAll, final String unstableNewHigh, final String unstableNewNormal, final String unstableNewLow,
 				final String failedTotalAll, final String failedTotalHigh, final String failedTotalNormal, final String failedTotalLow,
 				final String failedNewAll, final String failedNewHigh, final String failedNewNormal, final String failedNewLow,
-				final boolean canRunOnFailed, final String outputFile) {
+				final boolean canRunOnFailed, final boolean shouldDetectModules, final boolean canComputeNew, final String outputFile) {
 
 			super(healthy, unHealthy, thresholdLimit, "UTF-8", useDeltaValues,
 					unstableTotalAll, unstableTotalHigh, unstableTotalNormal, unstableTotalLow,
 					unstableNewAll, unstableNewHigh, unstableNewNormal, unstableNewLow,
 					failedTotalAll, failedTotalHigh, failedTotalNormal, failedTotalLow,
 					failedNewAll, failedNewHigh, failedNewNormal, failedNewLow,
-					canRunOnFailed, "BRAKEMAN");
+					canRunOnFailed, shouldDetectModules, canComputeNew, "BRAKEMAN");
 
 			this.outputFile = outputFile;
 		}

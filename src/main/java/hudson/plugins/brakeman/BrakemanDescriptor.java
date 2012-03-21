@@ -55,11 +55,4 @@ public final class BrakemanDescriptor extends PluginDescriptor {
         return FreeStyleProject.class.isAssignableFrom(jobType);
     }
 
-    /** {@inheritDoc} */
-    @Override
-    public BrakemanPublisher newInstance(final StaplerRequest request, final JSONObject formData) throws FormException {
-        BrakemanPublisher publisher = request.bindJSON(BrakemanPublisher.class, formData);
-
-        return publisher;
-    }
 }
